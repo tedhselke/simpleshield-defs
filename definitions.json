@@ -1,0 +1,42 @@
+{
+  "version": "1.0.0",
+  "updated": "2024-01-15",
+  "hashes": {
+    "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f": "EICAR-Test-File (AV test only)",
+    "24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c": "WannaCry Ransomware",
+    "ed01ebfbc9eb5bbea545af4d01bf5f1071661840480439c6e5babe8e080e41aa": "WannaCry Ransomware (variant)",
+    "027cc450ef5f8c5f653329641ec1fed91f694e0d229928963b30f6b0d7d3a745": "NotPetya Wiper",
+    "e3e76a7a757e84b7dc43d3218cd3cbe7b9e67abbbf5ac29ea6c55f0b5b1a83c8": "Mirai Botnet"
+  },
+  "patterns": [
+    { "pattern": "cmd.exe /c del",                    "description": "Self-deletion command" },
+    { "pattern": "net user administrator",            "description": "Admin account manipulation" },
+    { "pattern": "powershell -enc",                   "description": "Obfuscated PowerShell" },
+    { "pattern": "powershell -nop -w hidden",         "description": "Hidden PowerShell execution" },
+    { "pattern": "WScript.Shell",                     "description": "Windows Script Host shell" },
+    { "pattern": "CreateRemoteThread",                "description": "Remote thread injection" },
+    { "pattern": "VirtualAllocEx",                    "description": "Remote memory allocation" },
+    { "pattern": "mimikatz",                          "description": "Mimikatz credential dumper" },
+    { "pattern": "sekurlsa::logonpasswords",          "description": "Mimikatz password dump" },
+    { "pattern": "invoke-mimikatz",                   "description": "PowerShell Mimikatz" },
+    { "pattern": "meterpreter",                       "description": "Metasploit payload" },
+    { "pattern": "reverse_tcp",                       "description": "Reverse TCP shell" },
+    { "pattern": "IsDebuggerPresent",                 "description": "Anti-debugging check" },
+    { "pattern": "your files have been encrypted",    "description": "Ransomware note" },
+    { "pattern": "send your payment",                 "description": "Ransomware payment demand" },
+    { "pattern": "GetProcAddress",                    "description": "Dynamic API resolution" },
+    { "pattern": "HKEY_LOCAL_MACHINE\\SAM",          "description": "SAM registry access" },
+    { "pattern": "reg add HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", "description": "Registry persistence" }
+  ],
+  "dangerous_extensions": [
+    ".exe",".bat",".cmd",".com",".pif",".scr",
+    ".vbs",".vbe",".js",".jse",".ws",".wsf",
+    ".wsc",".wsh",".ps1",".hta",".cpl",".msi",
+    ".dll",".sys",".reg",".inf",".lnk"
+  ],
+  "skip_extensions": [
+    ".jpg",".jpeg",".png",".gif",".bmp",".webp",
+    ".mp3",".mp4",".avi",".mkv",".mov",".flac",".wav",
+    ".zip",".tar",".gz",".7z",".rar"
+  ]
+}
