@@ -1,18 +1,26 @@
 {
-  "version": "1.0.0",
-  "updated": "2024-01-15",
+  "version": "1.1.0",
+  "updated": "2026-05-31",
   "hashes": {
     "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f": "EICAR-Test-File (AV test only)",
     "24d004a104d4d54034dbcffc2a4b19a11f39008a575aa614ea04703480b1022c": "WannaCry Ransomware",
     "ed01ebfbc9eb5bbea545af4d01bf5f1071661840480439c6e5babe8e080e41aa": "WannaCry Ransomware (variant)",
     "027cc450ef5f8c5f653329641ec1fed91f694e0d229928963b30f6b0d7d3a745": "NotPetya Wiper",
-    "e3e76a7a757e84b7dc43d3218cd3cbe7b9e67abbbf5ac29ea6c55f0b5b1a83c8": "Mirai Botnet"
+    "e3e76a7a757e84b7dc43d3218cd3cbe7b9e67abbbf5ac29ea6c55f0b5b1a83c8": "Mirai Botnet",
+    "ee14d4bac5dfda479a81d91b682ecc42794163b233685741e0be0df5fe29e57d": "XWorm RAT (Windows Trojan)",
+    "2b2937df3e5ae5465058b45ddaf6e46432613fa5ac678d4d64a8daf0c2f56bfc": "NetworkGraphicsSetup Trojan Dropper",
+    "932620b4b6f1d2336b6bbb6e11ad85391cce459db49552dfeef86fb5504acf03": "Shellcode Loader (Windows PE)",
+    "5a7110828ff6a69d0b7c3a58b8022b7c29cd2ef52110bae5ee87fbb715246811": "PEASS-NG Privilege Escalation Tool",
+    "2b127d3989e38dac7f220e082813b65bc355c1cb819ffaddd6b4e6aa2b101dfd": "MaksRAT Remote Access Trojan",
+    "b6e5ede61684a2246797a01a6b6aeb8f99603044abb8a23663da0395edf6f20a": "ConnectWise RAT (VBS Backdoor)",
+    "d1b77de715ea1a66e9769029c71cf2f738223026488657cce03dc6a16de21e43": "Malicious VBS Dropper"
   },
   "patterns": [
     { "pattern": "cmd.exe /c del",                    "description": "Self-deletion command" },
     { "pattern": "net user administrator",            "description": "Admin account manipulation" },
     { "pattern": "powershell -enc",                   "description": "Obfuscated PowerShell" },
     { "pattern": "powershell -nop -w hidden",         "description": "Hidden PowerShell execution" },
+    { "pattern": "powershell -windowstyle hidden",    "description": "Hidden PowerShell window" },
     { "pattern": "WScript.Shell",                     "description": "Windows Script Host shell" },
     { "pattern": "CreateRemoteThread",                "description": "Remote thread injection" },
     { "pattern": "VirtualAllocEx",                    "description": "Remote memory allocation" },
@@ -24,19 +32,39 @@
     { "pattern": "IsDebuggerPresent",                 "description": "Anti-debugging check" },
     { "pattern": "your files have been encrypted",    "description": "Ransomware note" },
     { "pattern": "send your payment",                 "description": "Ransomware payment demand" },
+    { "pattern": "bitcoin wallet",                    "description": "Ransomware payment instruction" },
     { "pattern": "GetProcAddress",                    "description": "Dynamic API resolution" },
-    { "pattern": "HKEY_LOCAL_MACHINE\\SAM",          "description": "SAM registry access" },
-    { "pattern": "reg add HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", "description": "Registry persistence" }
+    { "pattern": "HKEY_LOCAL_MACHINE\\SAM",           "description": "SAM registry access" },
+    { "pattern": "reg add HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", "description": "Registry persistence" },
+    { "pattern": "schtasks /create",                  "description": "Scheduled task persistence" },
+    { "pattern": "netsh firewall",                    "description": "Firewall rule manipulation" },
+    { "pattern": "netsh advfirewall",                 "description": "Advanced firewall manipulation" },
+    { "pattern": "vssadmin delete shadows",           "description": "Shadow copy deletion (ransomware)" },
+    { "pattern": "bcdedit /set recoveryenabled no",   "description": "Boot recovery disabled (ransomware)" },
+    { "pattern": "wbadmin delete catalog",            "description": "Backup catalog deletion (ransomware)" },
+    { "pattern": "taskkill /f /im",                   "description": "Forced process termination" },
+    { "pattern": "curl http",                         "description": "HTTP download via curl" },
+    { "pattern": "wget http",                         "description": "HTTP download via wget" },
+    { "pattern": "bitsadmin /transfer",               "description": "BITS file transfer (common in malware)" },
+    { "pattern": "certutil -decode",                  "description": "CertUtil decode (common malware trick)" },
+    { "pattern": "certutil -urlcache",                "description": "CertUtil download (common malware trick)" },
+    { "pattern": "regsvr32 /s /n /u /i",              "description": "Regsvr32 bypass (Squiblydoo)" },
+    { "pattern": "rundll32.exe javascript",           "description": "Rundll32 JavaScript execution" },
+    { "pattern": "WriteProcessMemory",                "description": "Process memory injection" },
+    { "pattern": "SetWindowsHookEx",                  "description": "Keylogger hook installation" },
+    { "pattern": "GetAsyncKeyState",                  "description": "Keystroke capture" },
+    { "pattern": "CryptEncrypt",                      "description": "File encryption (possible ransomware)" },
+    { "pattern": "DeleteVolumeMountPoint",            "description": "Volume mount deletion" }
   ],
   "dangerous_extensions": [
-    ".exe",".bat",".cmd",".com",".pif",".scr",
-    ".vbs",".vbe",".js",".jse",".ws",".wsf",
-    ".wsc",".wsh",".ps1",".hta",".cpl",".msi",
-    ".dll",".sys",".reg",".inf",".lnk"
+    ".exe", ".bat", ".cmd", ".com", ".pif", ".scr",
+    ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf",
+    ".wsc", ".wsh", ".ps1", ".hta", ".cpl", ".msi",
+    ".dll", ".sys", ".reg", ".inf", ".lnk"
   ],
   "skip_extensions": [
-    ".jpg",".jpeg",".png",".gif",".bmp",".webp",
-    ".mp3",".mp4",".avi",".mkv",".mov",".flac",".wav",
-    ".zip",".tar",".gz",".7z",".rar"
+    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp",
+    ".mp3", ".mp4", ".avi", ".mkv", ".mov", ".flac", ".wav",
+    ".zip", ".tar", ".gz", ".7z", ".rar"
   ]
 }
